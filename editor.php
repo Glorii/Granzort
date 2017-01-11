@@ -157,7 +157,7 @@ $ls->bitmapMode($path);
         for (var i = byteMap.length - 1; i >= 0; i--) {
           byteMap[i] = new Array(HEIGHT);
           for (var j = byteMap[i].length - 1; j >= 0; j--) {
-            byteMap[i][j] = WHITE;
+            byteMap[i][j] = 0;
           };
         };
       }
@@ -169,18 +169,19 @@ $ls->bitmapMode($path);
         x=e.clientX - offset.left;
         y=e.clientY - offset.top;
         if(startDrawing){
-          mapX = parseInt(x/PIXEL);
-          mapY = parseInt(y/PIXEL);
+          //matrix in Arduibo is transposed
+          mapY = parseInt(x/PIXEL);
+          mapX = parseInt(y/PIXEL);
           byteMap[mapX][mapY] = color;
           if (thickness == 2) {
             cxt.fillRect(x-x%PIXEL, y-y%PIXEL, PIXEL*2, PIXEL*2);
-            if (mapX < byteMap.length - 1) {
+            if (mapX < byteMap[mapX].length - 1) {
               byteMap[mapX+1][mapY] = color;
             };
-            if (mapY < byteMap[mapX].length - 1) {
+            if (mapY < byteMap.length - 1) {
               byteMap[mapX][mapY+1] = color;
             };
-            if ((mapY < byteMap[mapX].length - 1)&&(mapX < byteMap.length - 1)) {
+            if ((mapY < byteMap.length - 1)&&(mapX < byteMap[mapX].length - 1)) {
               byteMap[mapX+1][mapY+1] = color;
             };
           }else{
