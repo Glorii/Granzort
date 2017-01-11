@@ -1,0 +1,17 @@
+.canvasSection{
+	position: relative;
+}
+#backgroundGrid{
+	position: absolute;
+	width: 960px;
+	height: 720px;
+	left: 0px;
+	top: 0px;
+}
+#editor{
+	position: absolute;
+	width: 960px;
+	height: 720px;
+	left: 0px;
+	top: 0px;
+}
