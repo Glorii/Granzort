@@ -134,6 +134,8 @@
           pathMode = 1;
         });
         $('#btn-go').click(function(event) {
+          // console.log(byteMap[0]);
+          // console.log(JSON.stringify(byteMap));
           $.post(
             'dealer.php', 
             {
@@ -142,8 +144,11 @@
               background:background
             }, 
             function(data, textStatus, xhr) {
-            /*optional stuff to do after success    loading....*/
-          });
+            /* loading....*/
+              // alert(textStatus);
+              console.log(xhr);
+            }
+          );
         });
       });
 
@@ -203,8 +208,6 @@
           }else{
             cxt.fillRect(x-x%PIXEL, y-y%PIXEL, PIXEL, PIXEL);
           };
-
-         console.log(x+','+y);
         }
       }
       function cnvs_drawStart(e)

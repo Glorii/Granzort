@@ -1,4 +1,5 @@
 <?php 
+require_once("logger.php");
 class LEDSummoner{
 	public $width, $height, $bitmap, $pathMode, $background;
 	private $comPort = "/dev/ttyACM0"; /*change to correct com port */
@@ -22,9 +23,9 @@ class LEDSummoner{
 	}
 	public function bitmapMode(){
 		$fp =fopen($this->comPort, "w");
-		fwrite($fp, $pathMode . $background . $this->array2str($this->bitmap));
+		fwrite($fp, $this->pathMode . $this->background . $this->array2str($this->bitmap));
 		fclose($fp);
-		echo $pathMode . $background . $this->array2str($this->bitmap);
+		MCDlog("----pathMode = " .$this->pathMode."----background = " . $this->background . $this->array2str($this->bitmap));
 	}
 }
 
