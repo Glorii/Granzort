@@ -16,22 +16,23 @@ FASTLED_USING_NAMESPACE
 #define PURPLE 8
 CRGB leds[NUM_LEDS];
   
-String usbnumber = ""; //this variable holds what we are currently reading from seri
 void setup() {
   delay(3000);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
   Serial.begin(9600);
 }
+String usbnumber = ""; //this variable holds what we are currently reading from seri
 int period = 0, mode, bg;
+
 uint8_t gHue = 0; // rotating "base color" used by many of the patterns
-uint8_t index = 0; //bitmap[index]
+uint8_t rowIndex = 0; //bitmap[rowIndex]
 
 void loop() {
     usbnumber="";
     while(Serial.available() > 0){//if there is anything on the serial port, read it
       usbnumber+=char(Serial.read());
-      delay(2);
+//      delay(2);
     }
     Serial.flush();
     if(usbnumber.length()!=0)
@@ -52,9 +53,9 @@ void loop() {
     EVERY_N_MILLISECONDS( 10 ) { 
       gHue++; 
       if(mode == 5 && period > 2){
-        index++; 
+        rowIndex++; 
       }else if(period > 1){
-        index++;
+        rowIndex++;
       }
     } // slowly cycle the "base color" through the rainbow
     EVERY_N_SECONDS( 2 ) { period++; } // change patterns periodically
@@ -72,7 +73,7 @@ void painting1(int bg)
     }
   }else{
     if(index<FRAMES){
-      paintMapByIndex();
+      paintMapByRowIndex();
     }else{
       callDarkness();
     }
@@ -88,15 +89,15 @@ void painting2(int bg)
     }
   }else{
     if(index<FRAMES){
-      paintMapByIndex();
+      paintMapByRowIndex();
     }else{
       callDarkness();
     }
   }
 }
 
-void paintMapByIndex(){
-    for(int i=2; i < index * NUM_LEDS + 2; i++){
+void paintMapByRowIndex(){
+    for(int i=2; i < (rowIndex + 1) * NUM_LEDS + 2; i++){
       int index = i % NUM_LEDS - 2;
       switch(usbnumber[i]){
         case WHITE:leds[index] = CRGB::White;break;
