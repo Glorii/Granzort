@@ -1,230 +1,323 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GRANZORT</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="editor.css">
-  </head>
-  <body>
-  <div class="container" style="background-color: rgb(36,38,51); width: 100%; height: 720;">
-    <div class="row">
-      <div class="col-md-1 leftbar">
-      	<ul class="nav nav-pills nav-stacked" role="tablist">
-      		<li role="presentation">
-	        <div id="logoimage"></div>
-	        </li>
-	        <li role="presentation" id="PathButton"><a href="#"></a>
-          	</li>
-        <li role="presentation">
-          <a class="dropdown-toggle"  id="BackgroundButton" data-toggle="dropdown" href="#">
-          </a>
-          <ul class="dropdown-menu dropdown-menu2" role="menu">
-           <li><a href="#" id="btn-rainbow"><img src="img/image1.jpg" />  rainbow</a></li>
-           <li><a href="#" id="btn-sinelon"><img src="img/image2.jpg" />  sinelon</a></li>
-           <li><a href="#" id="btn-juggle"><img src="img/image3.jpg" />  juggle</a></li>
-          </ul>
-        </li>
-        <li role="presentation" >
-          <a class="dropdown-toggle" id="ColorButton" data-toggle="dropdown" href="#">
-          </a>
-          <ul class="dropdown-menu dropdown-menu2" role="menu"style="width:30px; border: #5CB85C;">
-           <li><a href="#" class="colorli" id="btn-white" >white ▇</a></li>
-           <li><a href="#"  class="colorli" id="btn-red" >red ▇</a></li>
-           <li><a href="#" class="colorli" id="btn-orange">orange ▇</a></li>
-          </ul>
-        </li>
-        <li role="presentation">
-        	<a class="dropdown-toggle" id="ThicknessButton" data-toggle="dropdown" href="#">
-          </a>
-          <ul class="dropdown-menu dropdown-menu2" role="menu" >
-           <li><a href="#" id="btn-thick"><img src="img/brush1.png" />  </a></li>
-           <li><a href="#" id="btn-thin"><img src="img/brush2.png" />  </a></li>
-           <li><a href="#" id="btn-dotted"><img src="img/brush3.png" />  </a></li>
-          </ul>
-        </li>
-        <li role="presentation">
-        	<a class="dropdown-toggle" id="btn-shape" data-toggle="dropdown" href="#">
-        		</a>
-        		<ul class="dropdown-menu  dropdown-menu2" role="menu" style="width:30px; border: #5CB85C;">
-          	<li><a href="#" id="btn-path1"><img src="img/path1.png" />  </a></li>
-            <li><a href="#" id="btn-path2"><img src="img/path2.png" />  </a></li>
-            <li><a href="#" id="btn-path3"><img src="img/path3.png" />  </a></li>
-           </ul>
-        </li>
-        <li role="presentation" id="ClearButton"><a href="#" id="btn-clear"></a></li>
-        <li class="active" role="presentation"><a href="#" id="btn-go"></a></li>
-      </ul>
-      </div>
-      <div class="col-md-11 text-center">
-        <div class="canvasSection">
-            <canvas id="backgroundGrid" width="960" height="720"></canvas>     
-            <canvas id="editor" width="960" height="720" onmousemove="cnvs_drawing(event)" onmousedown="cnvs_drawStart(event)" onmouseup="cnvs_drawEnd(event)"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
 
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>GRANZORT</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="editor.css">
+	</head>
 
-      
+	<body>
+		<div class="container" style="background-color: rgb(36,38,51); width: 1070; height: 720;">
+			<div class="row">
+				<div class="col-md-1 leftbar">
+					<ul class="nav nav-pills nav-stacked" role="tablist">
+						<li role="presentation" id="logoimage">
+						</li>
+						<li role="presentation" id="PathButton" data-toggle="modal" data-target="#myModal">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-      var WIDTH = 192, HEIGHT = 144, PIXEL = 5;
-      var c=document.getElementById("editor"), cBG=document.getElementById("backgroundGrid");
-      var cxt=c.getContext("2d"), cxtBG=cBG.getContext("2d");
-      var pathMode = 1;
-      var byteMap = new Array(WIDTH);
-      var startDrawing = false;
-      var WHITE = 1, RED = 2, ORANGE = 3, YELLOW = 4, GRENN = 5, CYAN = 6, BLUE = 7, PURPLE = 8, RAINBOW = 0, SINELON = 1, JUGGLE = 2;
-      var color = WHITE, thickness = 1, background = RAINBOW;
-      cxtBG.translate(0.5,0.5); 
-      cxtBG.lineWidth = 1;
-      initEditor();
-      initByteMap();
+							<!-- Modal -->
+							<div class="modal fade" id="myModal" role="dialog">
+								<div class="modal-dialog">
 
-      jQuery(document).ready(function($) {
-        $('#btn-clear').click(function(event) {
-          initByteMap();
-          cxt.clearRect(0, 0, WIDTH*PIXEL, HEIGHT*PIXEL);
-          sleep(100);   
-        });
-        $('#btn-red').click(function(event) {
-          color = WHITE;
-          cxt.fillStyle = "white";
-        });
-        $('#btn-red').click(function(event) {
-          color = RED;
-          cxt.fillStyle = "red";
-        });
-        $('#btn-orange').click(function(event) {
-          color = ORANGE;
-          cxt.fillStyle = "orange";
-        });
-        $('#btn-thick').click(function(event) {
-          thickness = 2;
-        });
-        $('#btn-thin').click(function(event) {
-          thickness = 1;
-        });
-        $('#btn-rainbow').click(function(event) {
-          background = RAINBOW
-        });
-        $('#btn-sinelon').click(function(event) {
-          background = SINELON;
-        });
-        $('#btn-path5').click(function(event) {
-          pathMode = 5;
-        });
-        $('#btn-path4').click(function(event) {
-          pathMode = 4;
-        });
-        $('#btn-path3').click(function(event) {
-          pathMode = 3;
-        });
-        $('#btn-path2').click(function(event) {
-          pathMode = 2;
-        });
-        $('#btn-path1').click(function(event) {
-          pathMode = 1;
-        });
-        $('#btn-go').click(function(event) {
-          // console.log(byteMap[0]);
-          // console.log(JSON.stringify(byteMap));
-          $.post(
-            'dealer.php', 
-            {
-              bitmap: JSON.stringify(byteMap),
-              pathMode:pathMode,
-              background:background
-            }, 
-            function(data, textStatus, xhr) {
-            /* loading....*/
-              // alert(textStatus);
-              console.log(xhr);
-            }
-          );
-        });
-      });
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Modal Header</h4>
+										</div>
+										<div class="modal-body">
+											<p>Some text in the modal.</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
 
-      function initEditor () {
-        cxtBG.fillStyle = 'black';
-        cxtBG.fillRect(0, 0, WIDTH*PIXEL, HEIGHT*PIXEL);
-        cxtBG.strokeStyle = 'grey';
-        cxtBG.globalAlpha = 0.01;
-        drawGrid();
-        cxt.fillStyle = 'white';
-      }
+								</div>
+							</div>
 
-      function drawGrid(){
-        for (var i = HEIGHT - 1; i > 0; i--) {
-          cxtBG.moveTo(0, i*PIXEL);
-          cxtBG.lineTo(WIDTH*PIXEL, i*PIXEL);
-          cxtBG.stroke();
-        };
-        for (var i = WIDTH - 1; i > 0; i--) {
-          cxtBG.moveTo(i*PIXEL, 0);
-          cxtBG.lineTo(i*PIXEL, HEIGHT*PIXEL);
-          cxtBG.stroke();
-        };
-      }
+						</li>
+						<li role="presentation" id="BackgroundButton" data-toggle="modal" data-target="#myModal2">
 
-      function initByteMap(){
-        for (var i = byteMap.length - 1; i >= 0; i--) {
-          byteMap[i] = new Array(HEIGHT);
-          for (var j = byteMap[i].length - 1; j >= 0; j--) {
-            byteMap[i][j] = 0;
-          };
-        };
-      }
-      function cnvs_drawing(e)
-      {
-        var offset = $('#editor').offset();
-        var mapX, mapY;
-        cxt.globalAlpha = 1;
-        x=e.clientX - offset.left;
-        y=e.clientY - offset.top;
-        if(startDrawing){
-          //matrix in Arduibo is transposed
-          mapY = parseInt(x/PIXEL);
-          mapX = parseInt(y/PIXEL);
-          byteMap[mapX][mapY] = color;
-          if (thickness == 2) {
-            cxt.fillRect(x-x%PIXEL, y-y%PIXEL, PIXEL*2, PIXEL*2);
-            if (mapX < byteMap[mapX].length - 1) {
-              byteMap[mapX+1][mapY] = color;
-            };
-            if (mapY < byteMap.length - 1) {
-              byteMap[mapX][mapY+1] = color;
-            };
-            if ((mapY < byteMap.length - 1)&&(mapX < byteMap[mapX].length - 1)) {
-              byteMap[mapX+1][mapY+1] = color;
-            };
-          }else{
-            cxt.fillRect(x-x%PIXEL, y-y%PIXEL, PIXEL, PIXEL);
-          };
-        }
-      }
-      function cnvs_drawStart(e)
-      {
-        startDrawing = true;
-        var offset = $('#editor').offset();
-        x=e.clientX - offset.left;
-        y=e.clientY - offset.top;
-        console.log('mousedown'+x+','+y);
-      }
-      function cnvs_drawEnd(e){
-        startDrawing = false;
-      }
+							<!-- Modal -->
+							<div class="modal fade" id="myModal2" role="dialog">
+								<div class="modal-dialog">
 
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
-    </script>
-  </body>
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Modal Header</h4>
+										</div>
+										<div class="modal-body">
+											<p>Some text in the modal.</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</li>
+
+						<li role="presentation">
+							<a class="dropdown-toggle" id="ColorButton" data-toggle="dropdown" href="#">
+							</a>
+							<ul class="dropdown-menu dropdown-menu2" role="menu" style="width:30px; border: #5CB85C;">
+								<li>
+									<a href="#" class="colorli" id="btn-red">▇ red</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-orange">▇ orange</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-yellow">▇ yellow</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-green">▇ green</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-cyan">▇ cyan</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-blue">▇ blue</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-purple">▇ purple</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-pink">▇ pink</a>
+								</li>
+								<li>
+									<a href="#" class="colorli" id="btn-white">▇ white</a>
+								</li>
+							</ul>
+						</li>
+						<li role="presentation">
+							<a class="dropdown-toggle" id="ThicknessButton" data-toggle="dropdown" href="#">
+							</a>
+							<ul class="dropdown-menu dropdown-menu2" role="menu">
+								<li>
+									<a href="#" id="btn-thick"><img src="img/brush1.png" /> </a>
+								</li>
+								<li>
+									<a href="#" id="btn-thin"><img src="img/brush2.png" /> </a>
+								</li>
+								<li>
+									<a href="#" id="btn-dotted"><img src="img/brush3.png" /> </a>
+								</li>
+							</ul>
+						</li>
+						<li role="presentation">
+							<a class="dropdown-toggle" id="btn-shape" data-toggle="dropdown" href="#">
+							</a>
+							<ul class="dropdown-menu  dropdown-menu2" role="menu" style="width:30px; border: #5CB85C;">
+								<li>
+									<a href="#" id="btn-path1"><img src="img/path1.png" /> </a>
+								</li>
+								<li>
+									<a href="#" id="btn-path2"><img src="img/path2.png" /> </a>
+								</li>
+								<li>
+									<a href="#" id="btn-path3"><img src="img/path3.png" /> </a>
+								</li>
+							</ul>
+						</li>
+						<li role="presentation" id="ClearButton">
+							<a href="#" id="btn-clear"></a>
+						</li>
+						<li class="active" role="presentation">
+							<a href="#" id="btn-go"></a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-11 text-center">
+					<div class="canvasSection">
+						<canvas id="backgroundGrid" width="960" height="720"></canvas>
+						<canvas id="editor" width="960" height="720" onmousemove="cnvs_drawing(event)" onmousedown="cnvs_drawStart(event)" onmouseup="cnvs_drawEnd(event)"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			var WIDTH = 192,
+				HEIGHT = 144,
+				PIXEL = 5;
+			var c = document.getElementById("editor"),
+				cBG = document.getElementById("backgroundGrid");
+			var cxt = c.getContext("2d"),
+				cxtBG = cBG.getContext("2d");
+			var pathMode = 1;
+			var byteMap = new Array(WIDTH);
+			var startDrawing = false;
+			var WHITE = 1,
+				RED = 2,
+				ORANGE = 3,
+				YELLOW = 4,
+				GRENN = 5,
+				CYAN = 6,
+				BLUE = 7,
+				PURPLE = 8,
+				RAINBOW = 0,
+				SINELON = 1,
+				JUGGLE = 2;
+			var color = WHITE,
+				thickness = 1,
+				background = RAINBOW;
+			cxtBG.translate(0.5, 0.5);
+			cxtBG.lineWidth = 1;
+			initEditor();
+			initByteMap();
+
+			jQuery(document).ready(function($) {
+				$('#btn-clear').click(function(event) {
+					initByteMap();
+					cxt.clearRect(0, 0, WIDTH * PIXEL, HEIGHT * PIXEL);
+					sleep(100);
+				});
+				$('#btn-red').click(function(event) {
+					color = WHITE;
+					cxt.fillStyle = "white";
+				});
+				$('#btn-red').click(function(event) {
+					color = RED;
+					cxt.fillStyle = "red";
+				});
+				$('#btn-orange').click(function(event) {
+					color = ORANGE;
+					cxt.fillStyle = "orange";
+				});
+				$('#btn-thick').click(function(event) {
+					thickness = 2;
+				});
+				$('#btn-thin').click(function(event) {
+					thickness = 1;
+				});
+				$('#btn-rainbow').click(function(event) {
+					background = RAINBOW
+				});
+				$('#btn-sinelon').click(function(event) {
+					background = SINELON;
+				});
+				$('#btn-path5').click(function(event) {
+					pathMode = 5;
+				});
+				$('#btn-path4').click(function(event) {
+					pathMode = 4;
+				});
+				$('#btn-path3').click(function(event) {
+					pathMode = 3;
+				});
+				$('#btn-path2').click(function(event) {
+					pathMode = 2;
+				});
+				$('#btn-path1').click(function(event) {
+					pathMode = 1;
+				});
+				$('#btn-go').click(function(event) {
+					// console.log(byteMap[0]);
+					// console.log(JSON.stringify(byteMap));
+					$.post(
+						'dealer.php', {
+							bitmap: JSON.stringify(byteMap),
+							pathMode: pathMode,
+							background: background
+						},
+						function(data, textStatus, xhr) {
+							/* loading....*/
+							// alert(textStatus);
+							console.log(xhr);
+						}
+					);
+				});
+			});
+
+			function initEditor() {
+				cxtBG.fillStyle = 'black';
+				cxtBG.fillRect(0, 0, WIDTH * PIXEL, HEIGHT * PIXEL);
+				cxtBG.strokeStyle = 'grey';
+				cxtBG.globalAlpha = 0.01;
+				drawGrid();
+				cxt.fillStyle = 'white';
+			}
+
+			function drawGrid() {
+				for(var i = HEIGHT - 1; i > 0; i--) {
+					cxtBG.moveTo(0, i * PIXEL);
+					cxtBG.lineTo(WIDTH * PIXEL, i * PIXEL);
+					cxtBG.stroke();
+				};
+				for(var i = WIDTH - 1; i > 0; i--) {
+					cxtBG.moveTo(i * PIXEL, 0);
+					cxtBG.lineTo(i * PIXEL, HEIGHT * PIXEL);
+					cxtBG.stroke();
+				};
+			}
+
+			function initByteMap() {
+				for(var i = byteMap.length - 1; i >= 0; i--) {
+					byteMap[i] = new Array(HEIGHT);
+					for(var j = byteMap[i].length - 1; j >= 0; j--) {
+						byteMap[i][j] = 0;
+					};
+				};
+			}
+
+			function cnvs_drawing(e) {
+				var offset = $('#editor').offset();
+				var mapX, mapY;
+				cxt.globalAlpha = 1;
+				x = e.clientX - offset.left;
+				y = e.clientY - offset.top;
+				if(startDrawing) {
+					//matrix in Arduibo is transposed
+					mapY = parseInt(x / PIXEL);
+					mapX = parseInt(y / PIXEL);
+					byteMap[mapX][mapY] = color;
+					if(thickness == 2) {
+						cxt.fillRect(x - x % PIXEL, y - y % PIXEL, PIXEL * 2, PIXEL * 2);
+						if(mapX < byteMap[mapX].length - 1) {
+							byteMap[mapX + 1][mapY] = color;
+						};
+						if(mapY < byteMap.length - 1) {
+							byteMap[mapX][mapY + 1] = color;
+						};
+						if((mapY < byteMap.length - 1) && (mapX < byteMap[mapX].length - 1)) {
+							byteMap[mapX + 1][mapY + 1] = color;
+						};
+					} else {
+						cxt.fillRect(x - x % PIXEL, y - y % PIXEL, PIXEL, PIXEL);
+					};
+				}
+			}
+
+			function cnvs_drawStart(e) {
+				startDrawing = true;
+				var offset = $('#editor').offset();
+				x = e.clientX - offset.left;
+				y = e.clientY - offset.top;
+				console.log('mousedown' + x + ',' + y);
+			}
+
+			function cnvs_drawEnd(e) {
+				startDrawing = false;
+			}
+
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+		</script>
+	</body>
+
 </html>
