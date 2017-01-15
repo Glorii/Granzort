@@ -57,7 +57,7 @@
 }
 
 #ThicknessButton:hover {
-	background-image: url(img/brushB.jpg);
+	background-image: url(img/brushC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -67,16 +67,6 @@
 }
 
 #ColorButton {
-	background-image: url(img/colorA.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin-left: -14px;
-	margin-top: -2px;
-	width: 111px;
-	height: 90px;
-}
-
-#ColorButton:enabled {
 	background-image: url(img/colorA.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
@@ -96,8 +86,18 @@
 	height: 90px;
 }
 
-#ColorButton:hover {
+#ColorButton:enabled {
 	background-image: url(img/colorB.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin-left: -14px;
+	margin-top: -2px;
+	width: 111px;
+	height: 90px;
+}
+
+#ColorButton:hover {
+	background-image: url(img/colorC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -207,7 +207,7 @@
 }
 
 #BackgroundButton:enabled {
-	background-image: url(img/backgroundA.jpg);
+	background-image: url(img/backgroundB.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -227,7 +227,7 @@
 }
 
 #BackgroundButton:hover {
-	background-image: url(img/backgroundB.jpg);
+	background-image: url(img/backgroundC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -282,7 +282,7 @@
 }
 
 #PathButton:enabled {
-	background-image: url(img/pathA.jpg);
+	background-image: url(img/pathB.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -301,7 +301,7 @@
 }
 
 #PathButton:hover {
-	background-image: url(img/pathB.jpg);
+	background-image: url(img/pathC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -371,15 +371,6 @@
 	height: 90px;
 }
 
-#btn-shape:enabled {
-	background-image: url(img/shapeA.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin-left: -14px;
-	width: 111px;
-	height: 90px;
-}
-
 #btn-shape:focus {
 	background-image: url(img/shapeB.jpg);
 	background-size: 100%;
@@ -391,7 +382,7 @@
 }
 
 #btn-shape:hover {
-	background-image: url(img/shapeB.jpg);
+	background-image: url(img/shapeC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -410,14 +401,6 @@
 	height: 90px;
 }
 
-#btn-clear:enabled {
-	background-image: url(img/eraserA.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin-left: -14px;
-	width: 111px;
-	height: 90px;
-}
 
 #btn-clear:focus {
 	background-image: url(img/eraserB.jpg);
@@ -430,7 +413,7 @@
 }
 
 #btn-clear:hover {
-	background-image: url(img/eraserB.jpg);
+	background-image: url(img/eraserC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -449,17 +432,9 @@
 	height: 90px;
 }
 
-#btn-go:enabled {
-	background-image: url(img/okA.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin-left: -14px;
-	width: 111px;
-	height: 90px;
-}
 
 #btn-go:focus {
-	background-image: url(img/okA.jpg);
+	background-image: url(img/okB.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -469,7 +444,7 @@
 }
 
 #btn-go:hover {
-	background-image: url(img/okB.jpg);
+	background-image: url(img/okC.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin-left: -14px;
@@ -477,3 +452,53 @@
 	width: 111px;
 	height: 90px;
 }
+
+#bgitem1 {
+	background-image: url(img/bg1.jpeg);
+	background-size: 100%;
+}
+
+#bgitem2 {
+	background-image: url(img/bg2.jpeg);
+	background-size: 100%;
+}
+#bgitem3 {
+	background-image: url(img/bg3.jpeg);
+	background-size: 100%;
+}
+#bgitem4 {
+	background-image: url(img/bg4.jpeg);
+	background-size: 100%;
+}
+
+#modalTitle{
+	background-color: #303248;
+	font-family: "微软雅黑";
+	
+}
+.modal-header{
+	border-bottom: 0px;
+}
+.modal-title{
+	color: #ff5185;
+	font-family: "微软雅黑";
+}
+.modal-body{
+	padding: 0px;
+}
+
+.box {
+	background-color: #242633;
+	display: flex;
+	flex-direction: row;  
+	flex-wrap: wrap;      
+	justify-content: center;
+	align-content: center;
+}
+.item {
+	width: 40%;
+	height: 128px;
+	margin: 20px;
+}
+
+
