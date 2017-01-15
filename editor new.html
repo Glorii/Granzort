@@ -9,20 +9,22 @@
     <link rel="stylesheet" href="editor.css">
   </head>
   <body>
-  <div class="container" style="background-color: rgb(36,38,51); height: 720px;">
+  <div class="container" style="background-color: rgb(36,38,51); width: 100%; height: 720;">
     <div class="row">
       <div class="col-md-1 leftbar">
       	<ul class="nav nav-pills nav-stacked" role="tablist">
       		<li role="presentation">
-	          <div id="logoimage"></div>
+	        <div id="logoimage"></div>
 	        </li>
+	        <li role="presentation" id="PathButton"><a href="#"></a>
+          	</li>
         <li role="presentation">
-        	<a class="dropdown-toggle" id="ThicknessButton" data-toggle="dropdown" href="#">
+          <a class="dropdown-toggle"  id="BackgroundButton" data-toggle="dropdown" href="#">
           </a>
-          <ul class="dropdown-menu dropdown-menu2" role="menu" >
-           <li><a href="#" id="btn-thick"><img src="img/brush1.png" />  </a></li>
-           <li><a href="#" id="btn-thin"><img src="img/brush2.png" />  </a></li>
-           <li><a href="#" id="btn-dotted"><img src="img/brush3.png" />  </a></li>
+          <ul class="dropdown-menu dropdown-menu2" role="menu">
+           <li><a href="#" id="btn-rainbow"><img src="img/image1.jpg" />  rainbow</a></li>
+           <li><a href="#" id="btn-sinelon"><img src="img/image2.jpg" />  sinelon</a></li>
+           <li><a href="#" id="btn-juggle"><img src="img/image3.jpg" />  juggle</a></li>
           </ul>
         </li>
         <li role="presentation" >
@@ -35,25 +37,23 @@
           </ul>
         </li>
         <li role="presentation">
-          <a class="dropdown-toggle"  id="BackgroundButton" data-toggle="dropdown" href="#">
+        	<a class="dropdown-toggle" id="ThicknessButton" data-toggle="dropdown" href="#">
           </a>
-          <ul class="dropdown-menu dropdown-menu2" role="menu">
-           <li><a href="#" id="btn-rainbow"><img src="img/image1.jpg" />  rainbow</a></li>
-           <li><a href="#" id="btn-sinelon"><img src="img/image2.jpg" />  sinelon</a></li>
-           <li><a href="#" id="btn-juggle"><img src="img/image3.jpg" />  juggle</a></li>
+          <ul class="dropdown-menu dropdown-menu2" role="menu" >
+           <li><a href="#" id="btn-thick"><img src="img/brush1.png" />  </a></li>
+           <li><a href="#" id="btn-thin"><img src="img/brush2.png" />  </a></li>
+           <li><a href="#" id="btn-dotted"><img src="img/brush3.png" />  </a></li>
           </ul>
         </li>
         <li role="presentation">
-          <a class="dropdown-toggle" id="PathButton" data-toggle="dropdown" href="#">
-            
-          </a>
-          <ul class="dropdown-menu  dropdown-menu2" role="menu">
-           <li><a href="#" id="btn-path1"><img src="img/path1.png" />  </a></li>
-           <li><a href="#" id="btn-path2"><img src="img/path2.png" />  </a></li>
-           <li><a href="#" id="btn-path3"><img src="img/path3.png" />  </a></li>
-          </ul>
+        	<a class="dropdown-toggle" id="btn-shape" data-toggle="dropdown" href="#">
+        		</a>
+        		<ul class="dropdown-menu  dropdown-menu2" role="menu" style="width:30px; border: #5CB85C;">
+          	<li><a href="#" id="btn-path1"><img src="img/path1.png" />  </a></li>
+            <li><a href="#" id="btn-path2"><img src="img/path2.png" />  </a></li>
+            <li><a href="#" id="btn-path3"><img src="img/path3.png" />  </a></li>
+           </ul>
         </li>
-        <li role="presentation" id="ShapeButton"><a href="#" id="btn-shape"></a></li>
         <li role="presentation" id="ClearButton"><a href="#" id="btn-clear"></a></li>
         <li class="active" role="presentation"><a href="#" id="btn-go"></a></li>
       </ul>
